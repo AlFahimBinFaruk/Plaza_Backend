@@ -88,11 +88,6 @@ As a Customer, I can
 /api/user/update/{user_id}
 ```
 
-* Update user role : only authorized admin can access it - PUT
-```text
-/api/user/update/role/{user_id}
-```
-
 * Delete a user : secured, only authorized admin and user himself and access it - DELETE
 ```text
 /api/user/delete/{user_id}
@@ -123,14 +118,10 @@ As a Customer, I can
 /api/category/delete/{category_id}
 ```
 
-* Get all product List - all visitors can access it, it will have pagination - GET
-```text
-/api/product/all
-```
 
 * Get all product of a single category - all visitors can access it, it will have pagination - GET
 ```text
-/api/products?page=1&limit=10&categoryIds=categoryId1,categoryId2
+/api/products/all?page=1&limit=10&categoryIds=categoryId1,categoryId2
 ```
 
 * Search for products - all visitors can access it , it will have pagination - GET

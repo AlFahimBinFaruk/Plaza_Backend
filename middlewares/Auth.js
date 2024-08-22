@@ -1,20 +1,31 @@
 const { verifyToken } = require("../config/jwt");
 
-
 const Auth = (req, res, next) => {
-    const token = req.header('x-auth-token');
+    // Extract the token from the Authorization header
+    const authHeader = req.header('Authorization');
+    
+    if (!authHeader) {
+        return res.status(401).json({ msg: 'No token, authorization denied' });
+    }
+    
+    // Split the header to get the token
+    const token = authHeader.split(' ')[1];
+    
     if (!token) {
         return res.status(401).json({ msg: 'No token, authorization denied' });
     }
 
-    const decoded = verifyToken(token);
-    if (!decoded) {
+    try {
+        const decoded = verifyToken(token);
+        if (!decoded) {
+            return res.status(401).json({ msg: 'Token is not valid or has expired' });
+        }
+
+        req.user = decoded.user;
+        next();
+    } catch (err) {
         return res.status(401).json({ msg: 'Token is not valid or has expired' });
     }
-
-    req.user = decoded.user;
-    next();
 };
-
 
 module.exports = { Auth };

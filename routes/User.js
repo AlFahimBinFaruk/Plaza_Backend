@@ -11,14 +11,16 @@ const { GetUserDetailsController } = require('../controllers/user/GetUserDetails
 const { UpdateUserProfileController } = require('../controllers/user/UpdateUserProfileController');
 const { UpdateMyProfileController } = require('../controllers/user/UpdateMyProfileController');
 const { DeleteUserController } = require('../controllers/user/DeleteUserController');
+const { GetMyProfileDetailsController } = require('../controllers/user/GetMyProfileDetailsController');
 
 
 
 router.post("/api/user/login",LoginUserController);
 router.post("/api/user/register",RegisterUserController);
+router.get("/api/user/my-profile",Auth,GetMyProfileDetailsController);
 router.get("/api/user/all",Auth,AuthenticateAdmin,GetAllUserListController);
-router.get("/api/user/:user_id",Auth,GetUserDetailsController);
-router.put("/api/user/update-user-profile",Auth,AuthenticateAdmin,UpdateUserProfileController);
+router.get("/api/user/details/:user_id",Auth,GetUserDetailsController);
+router.put("/api/user/update/:user_id",Auth,AuthenticateAdmin,UpdateUserProfileController);
 router.put("/api/user/update-my-profile",Auth,UpdateMyProfileController);
 router.delete("/api/user/delete/:user_id",Auth,AuthenticateAdmin,DeleteUserController);
 router.put("/api/user/update-my-password",Auth,UpdateMyProfileController);

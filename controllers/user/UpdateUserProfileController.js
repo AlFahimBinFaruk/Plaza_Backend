@@ -1,10 +1,10 @@
 const User = require("../../models/User");
 
-// only admin can access this
+// Only admin can access this
 const UpdateUserProfileController = async (req, res) => {
     try {
         const user_id = req.params.user_id;
-        const updates = req.body;
+        const { first_name, last_name, email, phone, role } = req.body;
 
         const user = await User.findById(user_id);
 
@@ -12,10 +12,20 @@ const UpdateUserProfileController = async (req, res) => {
             return res.status(404).json({ msg: 'User not found' });
         }
 
-        // Update user fields with new values
-        for (let key of Object.keys(updates)) {
-            user[key] = updates[key];
+        // Check if email is unique
+        if (email && email !== user.email) {
+            const existingUser = await User.findOne({ email });
+            if (existingUser) {
+                return res.status(400).json({ msg: 'Email already in use' });
+            }
         }
+
+        // Update user fields with new values
+        if (first_name) user.first_name = first_name;
+        if (last_name) user.last_name = last_name;
+        if (email) user.email = email;
+        if (phone) user.phone = phone;
+        if (role) user.role = role;
 
         // Save the updated user
         await user.save();
@@ -26,6 +36,5 @@ const UpdateUserProfileController = async (req, res) => {
         return res.status(500).send('Server error');
     }
 };
-
 
 module.exports = { UpdateUserProfileController };
