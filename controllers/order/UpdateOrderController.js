@@ -4,7 +4,7 @@ const UpdateOrderController = async (req, res) => {
     try {
         const order_id = req.params.order_id;
         const { address, transaction_id, order_description, order_status } = req.body;
-        const user_id = req.user.user_id;
+        const user_id = req.user.id;
 
         // Find the order by ID
         const order = await Order.findById(order_id);

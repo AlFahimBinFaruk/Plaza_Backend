@@ -22,6 +22,10 @@ const OrderSchema = new Schema({
             ref: 'Product',
             required: true
         },
+        color: {
+            type: String,
+            required: true
+        },
         qty: {
             type: Number,
             required: true

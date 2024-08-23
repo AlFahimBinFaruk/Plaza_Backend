@@ -3,8 +3,8 @@ const Product = require('../../models/Product');
 
 const PlaceOrderController = async (req, res) => {
     try {
-        const { address, transaction_id, order_description } = req.body;
-        const user_id = req.user.user_id;
+        const { address, order_description } = req.body;
+        const user_id = req.user.id;
 
         // Validate request
         if (!address || !order_description || !order_description.length) {
@@ -13,7 +13,7 @@ const PlaceOrderController = async (req, res) => {
 
         // Validate order_description content
         for (let item of order_description) {
-            if (!item.product_id || !item.qty || !item.size) {
+            if (!item.product_id || !item.qty || !item.size || !item.color) {
                 return res.status(400).json({ msg: 'Invalid order description' });
             }
 
@@ -28,7 +28,7 @@ const PlaceOrderController = async (req, res) => {
         const order = new Order({
             user_id,
             address,
-            transaction_id,
+            transaction_id:"",
             order_description,
             order_status: 'pending'
         });

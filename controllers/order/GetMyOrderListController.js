@@ -3,7 +3,7 @@ const Order = require('../../models/Order');
 const GetMyOrderListController = async (req, res) => {
     try {
         const { page = 1, limit = 10 } = req.query;
-        const user_id = req.user.user_id;
+        const user_id = req.user.id;
 
         const orders = await Order.find({ user_id: user_id })
             .skip((page - 1) * limit)
