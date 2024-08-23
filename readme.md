@@ -1,7 +1,7 @@
 ## Plaza Backend API
 * Live Link: todo
-* Frontend : todo
-* Admin panel : todo
+* [Frontend - Client side](https://github.com/AlFahimBinFaruk/Plaza_Client)
+* [Admin panel](https://github.com/AlFahimBinFaruk/Adminpanel_plaza)
 
 ### Client Requirements
 
